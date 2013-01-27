@@ -5,12 +5,7 @@
         protected internal FaceCard(Rank rank, Suit suit) : base(rank, suit)
         {}
 
-        public override int SoftValue
-        {
-            get { return 10; }
-        }
-
-        public override int HardValue
+        public override int Value
         {
             get { return 10; }
         }

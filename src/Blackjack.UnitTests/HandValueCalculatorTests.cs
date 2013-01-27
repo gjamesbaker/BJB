@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using Should.Fluent;
@@ -16,10 +15,8 @@ namespace Blackjack.UnitTests
             var card1 = Substitute.For<IBlackjackCard>();
             var card2 = Substitute.For<IBlackjackCard>();
 
-            card1.SoftValue.Returns(card1Value);
-            card1.HardValue.Returns(card1Value);
-            card2.SoftValue.Returns(card2Value);
-            card2.HardValue.Returns(card2Value);
+            card1.Value.Returns(card1Value);
+            card2.Value.Returns(card2Value);
             
             var cards = new List<IBlackjackCard>(){card1, card2};
 
@@ -35,18 +32,15 @@ namespace Blackjack.UnitTests
             value.Should().Equal(handValue);
         }
 
-        [Test, TestCaseSource("TwoCardsOneAce")]
-        public void calculates_best_2_card_score_with_one_ace(int card1Value, int card2Value, int handValue)
+        [Test, TestCaseSource("TwoCardsWithAce")]
+        public void calculates_best_2_card_score_with_an_ace(int card1Value, int card2Value, int handValue)
         {
             // Arrange
+            var card1 = card1Value == 11 ? Substitute.For<IAceCard>() : Substitute.For<IBlackjackCard>();
+            var card2 = card2Value == 11 ? Substitute.For<IAceCard>() : Substitute.For<IBlackjackCard>();
 
-            var card1 = Substitute.For<IBlackjackCard>();
-            var card2 = Substitute.For<IBlackjackCard>();
-
-            card1.SoftValue.Returns(card1Value == 1 ? 11 : card1Value);
-            card1.HardValue.Returns(card1Value);
-            card2.SoftValue.Returns(card2Value == 1 ? 11 : card2Value);
-            card2.HardValue.Returns(card2Value);
+            card1.Value.Returns(card1Value);
+            card2.Value.Returns(card2Value);
 
             var cards = new List<IBlackjackCard>() { card1, card2 };
 
@@ -85,12 +79,13 @@ namespace Blackjack.UnitTests
                 new object[] {10, 10, 20}
             };
 
-        private static readonly object[] TwoCardsOneAce =
+        private static readonly object[] TwoCardsWithAce =
             {
-                new object[] {1, 2, 13},
-                new object[] {1, 10, 21},
-                new object[] {9, 1, 20},
-                new object[] {10, 1, 21}
+                new object[] {11, 2, 13},
+                new object[] {11, 10, 21},
+                new object[] {9, 11, 20},
+                new object[] {10, 11, 21},
+                new object[] {11, 11, 12}
             };
 
     }

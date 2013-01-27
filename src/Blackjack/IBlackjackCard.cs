@@ -2,7 +2,6 @@
 {
     public interface IBlackjackCard : ICard
     {
-        int SoftValue { get; }
-        int HardValue { get; }
+        int Value { get; }
     }
 }

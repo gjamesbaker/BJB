@@ -24,8 +24,7 @@ namespace Blackjack.UnitTests
             var ace = BlackjackCardFactory.Get(Rank.Ace, Suit.Clubs);
 
             // Assert
-            ace.SoftValue.Should().Equal(11);
-            ace.HardValue.Should().Equal(1);
+            ace.Value.Should().Equal(11);
         }
 
         [Test]
@@ -35,8 +34,7 @@ namespace Blackjack.UnitTests
             var jack = BlackjackCardFactory.Get(Rank.Jack, Suit.Diamonds);
 
             // Assert
-            jack.SoftValue.Should().Equal(10);
-            jack.HardValue.Should().Equal(10);
+            jack.Value.Should().Equal(10);
         }
 
         [Test]
@@ -46,8 +44,7 @@ namespace Blackjack.UnitTests
             var five = BlackjackCardFactory.Get(Rank.Five, Suit.Hearts);
 
             // Assert
-            five.SoftValue.Should().Equal(5);
-            five.HardValue.Should().Equal(5);
+            five.Value.Should().Equal(5);
         }
 
     }
