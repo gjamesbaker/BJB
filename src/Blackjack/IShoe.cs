@@ -4,5 +4,6 @@
     {
         int CardCount();
         ICard Deal();
+        void Shuffle(IRandom random);
     }
 }

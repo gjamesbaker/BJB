@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CuttingEdge.Conditions;
 
 namespace Blackjack
 {
@@ -34,13 +35,11 @@ namespace Blackjack
 
         public ICard Deal()
         {
-            ICard card = null;
+            if (CardCount() < 1)
+                throw new ShoeOutOfCardsException();
 
-            if (CardCount() > 0)
-            {
-                card = _cards[0];
-                _cards.RemoveAt(0);
-            }
+            var card = _cards[0];
+            _cards.RemoveAt(0);
 
             return card;
         }

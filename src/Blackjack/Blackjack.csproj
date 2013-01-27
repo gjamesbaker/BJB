@@ -47,15 +47,20 @@
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="FaceCard.cs" />
+    <Compile Include="Hand.cs" />
+    <Compile Include="HandValueCalculator.cs" />
     <Compile Include="IBlackjackCard.cs" />
+    <Compile Include="IBlackjackHand.cs" />
     <Compile Include="ICard.cs" />
     <Compile Include="IDeck.cs" />
+    <Compile Include="IHandValueCalculator.cs" />
     <Compile Include="IRandom.cs" />
     <Compile Include="IShoe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Random.cs" />
     <Compile Include="Rank.cs" />
     <Compile Include="Shoe.cs" />
+    <Compile Include="ShoeOutOfCardsException.cs" />
     <Compile Include="Suit.cs" />
   </ItemGroup>
   <ItemGroup>
