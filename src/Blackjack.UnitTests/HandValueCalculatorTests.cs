@@ -56,19 +56,30 @@ namespace Blackjack.UnitTests
             value.Should().Equal(handValue);
         }
 
-        public void calculates_best_3_card_score_with_one_ace()
+        [Test, TestCaseSource("ThreeCards")]
+        public void calculates_best_3_card_score(int card1Value, int card2Value, int card3Value, int handValue)
         {
+            // Arrange
+            var card1 = card1Value == 11 ? Substitute.For<IAceCard>() : Substitute.For<IBlackjackCard>();
+            var card2 = card2Value == 11 ? Substitute.For<IAceCard>() : Substitute.For<IBlackjackCard>();
+            var card3 = card3Value == 11 ? Substitute.For<IAceCard>() : Substitute.For<IBlackjackCard>();
 
-        }
+            card1.Value.Returns(card1Value);
+            card2.Value.Returns(card2Value);
+            card3.Value.Returns(card3Value);
 
-        public void calculates_best_score_with_two_aces()
-        {
+            var cards = new List<IBlackjackCard>() { card1, card2, card3 };
 
-        }
+            var hand = Substitute.For<IBlackjackHand>();
+            hand.Cards.Returns(cards);
 
-        public void calculates_best_score_with_two_aces_plus_one_more_card()
-        {
+            var handValueCalculator = new HandValueCalculator();
 
+            // Act
+            var value = handValueCalculator.Value(hand);
+
+            // Assert
+            value.Should().Equal(handValue);
         }
 
         private static readonly object[] TwoCardsNoAce =
@@ -86,6 +97,15 @@ namespace Blackjack.UnitTests
                 new object[] {9, 11, 20},
                 new object[] {10, 11, 21},
                 new object[] {11, 11, 12}
+            };
+
+        private static readonly object[] ThreeCards =
+            {
+                new object[] {2, 2, 2, 6},
+                new object[] {2, 3, 4, 9},
+                new object[] {2, 10, 10, 22},
+                new object[] {2, 10, 11, 13},
+                new object[] {11, 8, 2, 21}
             };
 
     }
