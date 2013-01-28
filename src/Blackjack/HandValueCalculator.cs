@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Blackjack
+﻿namespace Blackjack
 {
     public class HandValueCalculator : IHandValueCalculator
     {

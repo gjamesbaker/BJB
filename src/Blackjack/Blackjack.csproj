@@ -43,14 +43,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AceCard.cs" />
+    <Compile Include="Bet.cs" />
     <Compile Include="BlackjackCardFactory.cs" />
+    <Compile Include="BlackjackPlayer.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="FaceCard.cs" />
     <Compile Include="Hand.cs" />
     <Compile Include="HandValueCalculator.cs" />
+    <Compile Include="IBlackjackBet.cs" />
     <Compile Include="IBlackjackCard.cs" />
     <Compile Include="IBlackjackHand.cs" />
+    <Compile Include="IBlackjackPlayer.cs" />
     <Compile Include="ICard.cs" />
     <Compile Include="IDeck.cs" />
     <Compile Include="IHandValueCalculator.cs" />

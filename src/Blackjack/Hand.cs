@@ -1,34 +1,68 @@
 ﻿using System.Collections.Generic;
-using CuttingEdge.Conditions;
 
 namespace Blackjack
 {
     public class Hand : IBlackjackHand
     {
-        private readonly IHandValueCalculator _handValueCalculator;
         private readonly List<IBlackjackCard> _cards;
 
-        public Hand(IHandValueCalculator handValueCalculator)
+        public Hand(IBlackjackPlayer player)
         {
-            Condition.Requires(handValueCalculator, "handValueCalculator").IsNotNull();
-
-            _handValueCalculator = handValueCalculator;
             _cards = new List<IBlackjackCard>();
+
+            EligibleForBlackjack = true;
+            HasBlackjack = false;
+
+            HandValueCalculator = new HandValueCalculator();
+            Player = player;
         }
 
-        public IEnumerable<IBlackjackCard> Cards
-        {
-            get { return _cards; }
-        }
+        public IBlackjackBet Bet { get; set; }
+        
+        public IEnumerable<IBlackjackCard> Cards { get { return _cards; } }
+
+        public bool EligibleForBlackjack { get; set; }
+
+        public IHandValueCalculator HandValueCalculator { get; set; }
+
+        public bool HasBlackjack { get; private set; }
+
+        public IBlackjackPlayer Player { get; private set; }
+
 
         public void AddCard(IBlackjackCard card)
         {
             _cards.Add(card);
+            if (EligibleForBlackjack)
+                CheckForBlackjack();
+        }
+
+        public bool Busted()
+        {
+            return Value() > 21;
+        }
+
+        private void CheckForBlackjack()
+        {
+            switch (_cards.Count)
+            {
+                case 0:
+                case 1:
+                    return;
+                case 2:
+                    HasBlackjack = EligibleForBlackjack && Value() == 21;
+                    EligibleForBlackjack = HasBlackjack;
+                    return;
+                default:
+                    HasBlackjack = false;
+                    EligibleForBlackjack = false;
+                    return;
+            }
         }
 
         public int Value()
         {
-            return _handValueCalculator.Value(this);
+            return HandValueCalculator.Value(this);
         }
 
     }
