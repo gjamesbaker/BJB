@@ -2,11 +2,11 @@
 
 namespace Blackjack
 {
-    public class Hand : IBlackjackHand
+    public abstract class Hand : IBlackjackHand
     {
-        private readonly List<IBlackjackCard> _cards;
+        protected readonly List<IBlackjackCard> _cards;
 
-        public Hand(IBlackjackPlayer player)
+        protected Hand()
         {
             _cards = new List<IBlackjackCard>();
 
@@ -14,7 +14,6 @@ namespace Blackjack
             HasBlackjack = false;
 
             HandValueCalculator = new HandValueCalculator();
-            Player = player;
         }
 
         public IBlackjackBet Bet { get; set; }
@@ -27,7 +26,7 @@ namespace Blackjack
 
         public bool HasBlackjack { get; private set; }
 
-        public IBlackjackPlayer Player { get; private set; }
+        public IBlackjackPlayer Player { get; protected set; }
 
 
         public void AddCard(IBlackjackCard card)
@@ -64,6 +63,5 @@ namespace Blackjack
         {
             return HandValueCalculator.Value(this);
         }
-
     }
 }

@@ -16,7 +16,7 @@ namespace Blackjack.UnitTests
             var player = Substitute.For<IBlackjackPlayer>();
 
             // Act
-            IBlackjackHand hand = new Hand(player);
+            IBlackjackHand hand = new PlayerHand(player);
 
             // Assert
             hand.Cards.Should().Not.Be.Null();
@@ -29,7 +29,7 @@ namespace Blackjack.UnitTests
             // Arrange
             var player = Substitute.For<IBlackjackPlayer>();
             var card = Substitute.For<IBlackjackCard>();
-            IBlackjackHand hand = new Hand(player);
+            IBlackjackHand hand = new PlayerHand(player);
 
             // Act
             hand.AddCard(card);
@@ -46,7 +46,7 @@ namespace Blackjack.UnitTests
             var player = Substitute.For<IBlackjackPlayer>();
             var card1 = Substitute.For<IBlackjackCard>();
             var card2 = Substitute.For<IBlackjackCard>();
-            IBlackjackHand hand = new Hand(player);
+            IBlackjackHand hand = new PlayerHand(player);
 
             // Act
             hand.AddCard(card1);
@@ -66,7 +66,7 @@ namespace Blackjack.UnitTests
             var player = Substitute.For<IBlackjackPlayer>();
             var handValueCalculator = Substitute.For<IHandValueCalculator>();
 
-            IBlackjackHand hand = new Hand(player);
+            IBlackjackHand hand = new PlayerHand(player);
             handValueCalculator.Value(hand).Returns(13);
 
             hand.HandValueCalculator = handValueCalculator;
@@ -90,8 +90,8 @@ namespace Blackjack.UnitTests
             
             var card1 = Substitute.For<IBlackjackCard>();
             var card2 = Substitute.For<IBlackjackCard>();
-            
-            IBlackjackHand hand = new Hand(player);
+
+            IBlackjackHand hand = new PlayerHand(player);
 
             // Act
             hand.AddCard(card1);
@@ -120,7 +120,7 @@ namespace Blackjack.UnitTests
             var card2 = Substitute.For<IBlackjackCard>();
             var card3 = Substitute.For<IBlackjackCard>();
 
-            IBlackjackHand hand = new Hand(player);
+            IBlackjackHand hand = new PlayerHand(player);
 
             // Act
             hand.AddCard(card1);
@@ -141,7 +141,7 @@ namespace Blackjack.UnitTests
             var player = Substitute.For<IBlackjackPlayer>();
             var handValueCalculator = Substitute.For<IHandValueCalculator>();
 
-            IBlackjackHand hand = new Hand(player);
+            IBlackjackHand hand = new PlayerHand(player);
             handValueCalculator.Value(hand).Returns(22);
 
             hand.HandValueCalculator = handValueCalculator;
@@ -160,7 +160,7 @@ namespace Blackjack.UnitTests
             var player = Substitute.For<IBlackjackPlayer>();
             var handValueCalculator = Substitute.For<IHandValueCalculator>();
 
-            IBlackjackHand hand = new Hand(player);
+            IBlackjackHand hand = new PlayerHand(player);
             handValueCalculator.Value(hand).Returns(20);
 
             hand.HandValueCalculator = handValueCalculator;

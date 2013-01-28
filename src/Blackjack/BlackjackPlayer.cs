@@ -27,7 +27,7 @@ namespace Blackjack
 
         public IBlackjackBet PlaceBet()
         {
-            var hand = new Hand(this);
+            var hand = new PlayerHand(this);
             Balance -= Ante;
             return new Bet(Ante, hand);
         }
