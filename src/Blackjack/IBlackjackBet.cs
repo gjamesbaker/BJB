@@ -7,5 +7,6 @@
 
         double WinAmount();
         double LoseAmount();
+        PushBet ConvertToPushBet();
     }
 }

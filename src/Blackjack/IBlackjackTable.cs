@@ -14,6 +14,7 @@ namespace Blackjack
         void OfferdoubleDowns();
         void FillPlayerHands();
         void FillDealerHand();
-        
+        double SettleBets();
+        void ShuffleShoe();
     }
 }

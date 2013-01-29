@@ -54,6 +54,11 @@ namespace Blackjack
             _table.FillDealerHand();
         }
 
+        public double SettleBets()
+        {
+            return _table.SettleBets();
+        }
+
         private void DealOneCardToDealer()
         {
             _table.DealerHand.AddCard(_table.Shoe.Deal());
@@ -68,49 +73,20 @@ namespace Blackjack
             }
         }
 
-        public string GetHandInfo()
+        public override string ToString()
         {
             var output = new StringBuilder();
 
-            foreach (var hand in _table.Players.SelectMany(player => player.Hands))
+            foreach (var player in _table.Players)
             {
-                output.Append("     Hand: ").Append(hand.Value()).Append("   ").Append(hand.Bet);
-
-                if (hand.Busted)
-                    output.AppendLine("   *BUSTED*  ").Append("          ");
-                else if(hand.HasBlackjack)
-                    output.AppendLine("   ** BLACKJACK **  ").Append("          ");
-                else
-                    output.AppendLine().Append("          ");
-
-                foreach (var card in hand.GetCards())
-                {
-                    output.Append(card.ToLongString()).Append("    ");
-                }
-                output.AppendLine().AppendLine();
+                output.AppendLine(player.ToString());
             }
 
-            output.Append("     Dealer: ").Append(_table.DealerHand.Value());
-
-            // TODO: implement a _table.DealerBusted method
-            if (_table.DealerHand.Busted)
-                output.AppendLine("   *BUSTED*  ").Append("          ");
-            else if (_table.DealerHand.HasBlackjack)
-                output.AppendLine("   ** BLACKJACK **  ").Append("          ");
-            else
-                output.AppendLine().Append("          ");
-
-
-            foreach (var card in _table.DealerHand.GetCards())
-            {
-                output.Append(card.ToLongString()).Append("  ");
-            }
-            output.AppendLine().AppendLine();
+            output.Append(_table.DealerHand.ToString());
 
             return output.ToString();
         }
-
-
+        
 
     }
 }

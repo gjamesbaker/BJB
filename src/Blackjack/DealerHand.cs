@@ -1,4 +1,6 @@
-﻿namespace Blackjack
+﻿using System.Text;
+
+namespace Blackjack
 {
     public class DealerHand : Hand, IDealerHand
     {
@@ -11,6 +13,29 @@
         public IBlackjackCard GetFaceUpCard()
         {
             return GetCards().Count == 2 ? GetCards()[1] : null;
+        }
+
+        public override string ToString()
+        {
+            var output = new StringBuilder();
+
+            output.AppendFormat("   Dealer: ({0})", Value());
+
+            if ( Busted )
+                output.Append("   *BUSTED*  ");
+
+            if ( HasBlackjack )
+                output.Append("   ** BLACKJACK **  ");
+
+            output.AppendLine().Append("     ");
+
+            foreach (var card in GetCards())
+            {
+                output.AppendLine(card.ToLongString()).Append("     ");
+            }
+            output.AppendLine().AppendLine();
+
+            return output.ToString();
         }
     }
 }

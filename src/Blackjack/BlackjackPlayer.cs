@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Blackjack
 {
@@ -43,7 +45,22 @@ namespace Blackjack
             _hands.Add(hand);
         }
 
-        public bool OfferSplit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
+        public bool OfferSplit(IBlackjackCard dealerFaceUpCard)
+        {
+            var splitOccurred = false;
+
+            // Offer a split to all eligible hands
+            foreach (var hand in Hands.ToList())
+            {
+                if (hand.EligibleForSplit)
+                {
+                    splitOccurred = splitOccurred || ConsiderSplitOffer(hand, dealerFaceUpCard);
+                }
+            }
+            return splitOccurred;
+        }
+
+        private bool ConsiderSplitOffer(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
         {
             if (!playerHand.EligibleForSplit)
             {
@@ -79,7 +96,44 @@ namespace Blackjack
 
         public bool Hit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
         {
+            // Simplistic strategy
             return playerHand.Value() < 17 && playerHand.Bet is AnteBet;
+        }
+
+        // TODO: Add Test
+        public double SettleBet(IBlackjackHand hand, IDealerHand dealerHand)
+        {
+            if (hand.Busted)
+                return hand.Bet.LoseAmount();
+
+            if (hand.Value() == dealerHand.Value())
+            {
+                Balance += hand.Bet.Amount;
+                hand.Bet = hand.Bet.ConvertToPushBet();
+
+                return 0;
+            }
+
+            if (hand.Value() < dealerHand.Value())
+            {
+                return hand.Bet.LoseAmount();
+            }
+            
+            Balance += hand.Bet.Amount + hand.Bet.WinAmount();
+            return hand.Bet.WinAmount()*-1;
+        }
+
+        public override string ToString()
+        {
+            var output = new StringBuilder();
+            output.AppendFormat("Balance: {0:C}  Hands: {1}", Balance, _hands.Count).AppendLine();
+
+            foreach (var hand in _hands)
+            {
+                output.AppendLine(hand.ToString());
+            }
+
+            return output.ToString();
         }
     }
 }

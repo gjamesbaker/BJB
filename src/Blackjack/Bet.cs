@@ -12,14 +12,19 @@ namespace Blackjack
         public double Amount { get; private set; }
         public double Odds { get; protected set; }
        
-        public double WinAmount()
+        public virtual double WinAmount()
         {
             return Amount * Odds;
         }
 
-        public double LoseAmount()
+        public virtual double LoseAmount()
         {
             return Amount;
+        }
+
+        public PushBet ConvertToPushBet()
+        {
+            return new PushBet();
         }
     }
 
@@ -44,6 +49,19 @@ namespace Blackjack
         public override string ToString()
         {
             return String.Format("AnteBet of {0:C} at {1}:1 odds", Amount, Odds);
+        }
+    }
+
+    public class PushBet : Bet
+    {
+        public PushBet() : base(0)
+        {
+            Odds = 0;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("PushBet of {0:C}", Amount);
         }
     }
 

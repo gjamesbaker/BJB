@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Blackjack
 {
@@ -103,6 +104,25 @@ namespace Blackjack
         public int Value()
         {
             return HandValueCalculator.Value(this);
+        }
+
+        public override string ToString()
+        {
+            var output = new StringBuilder();
+
+            output.AppendFormat("   Hand:  ({0})   Bet: ", Value()).Append(Bet);
+            if (Busted)
+                output.AppendLine("    BUSTED");
+            else if (HasBlackjack)
+                output.AppendLine("    BLACKJACK");
+            else output.AppendLine();
+
+            foreach (var card in _cards)
+            {
+                output.Append("     ").AppendLine(card.ToString());
+            }
+
+            return output.ToString();
         }
     }
 

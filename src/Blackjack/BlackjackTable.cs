@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Blackjack
 {
@@ -55,20 +56,12 @@ namespace Blackjack
 
                 do
                 {
-                    splitOccurred = false;
+                    splitOccurred = player.OfferSplit(dealerFaceUpCard);
 
-                    foreach (var hand in player.Hands.ToList())
-                    {
-                        if (hand.EligibleForSplit)
-                        {
-                            splitOccurred = splitOccurred || player.OfferSplit(hand, dealerFaceUpCard);
-                        }
-                    }
-
+                    // If a split occurred, we need to add the second card to the split hands
                     if (splitOccurred)
                         CompleteHands(player);
-
-                } while (splitOccurred);
+                } while (splitOccurred);  // Keep going until no more splits are possible or accepted.
             }
         }
 
@@ -108,12 +101,36 @@ namespace Blackjack
                 DealerHand.AddCard(Shoe.Deal());
         }
 
+        public double SettleBets()
+        {
+            return Players.Sum(player => player.Hands.Sum(hand => player.SettleBet(hand, DealerHand)));
+        }
+
+        public void ShuffleShoe()
+        {
+            Shoe.Shuffle();
+        }
+
         private void CompleteHands(IBlackjackPlayer player)
         {
             foreach (var hand in player.Hands.Where(hand => hand.GetCards().Count == 1))
             {
                 hand.AddCard(Shoe.Deal());
             }
+        }
+
+        public override string ToString()
+        {
+            var output = new StringBuilder();
+
+            foreach (var player in Players)
+            {
+                output.AppendLine(player.ToString());
+            }
+
+            output.Append(DealerHand.ToString());
+
+            return output.ToString();
         }
 
     }

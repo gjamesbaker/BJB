@@ -10,7 +10,7 @@
             table.AddPlayer(player1);
             table.AddPlayer(player2);
 
-            table.Shoe.Shuffle();
+            table.ShuffleShoe();
 
             var game = new Game(table);
 
@@ -18,39 +18,41 @@
             game.CallForBets();
             game.DealHands();
 
-            System.Console.WriteLine("Initial Deal:");
-            var output = game.GetHandInfo();
-            System.Console.WriteLine(output);
+            System.Console.WriteLine("***   Initial Deal   ***");
+            System.Console.WriteLine();
+            System.Console.WriteLine(game.ToString());
 
             game.OfferSplits();
 
-            System.Console.WriteLine("After OfferSplits:");
-            output = game.GetHandInfo();
-            System.Console.WriteLine(output);
+            System.Console.WriteLine("***   After OfferSplits   ***");
+            System.Console.WriteLine();
+            System.Console.WriteLine(game.ToString());
 
             game.OfferDoubleDowns();
 
-            System.Console.WriteLine("After OfferDoubleDowns:");
-            output = game.GetHandInfo();
-            System.Console.WriteLine(output);
+            System.Console.WriteLine("***   After OfferDoubleDowns   ***");
+            System.Console.WriteLine();
+            System.Console.WriteLine(game.ToString());
 
             game.FillPlayerHands();
 
-            System.Console.WriteLine("After FillPlayerHands:");
-            output = game.GetHandInfo();
-            System.Console.WriteLine(output);
+            System.Console.WriteLine("***   After FillPlayerHands   ***");
+            System.Console.WriteLine();
+            System.Console.WriteLine(game.ToString());
 
             game.FillDealerHand();
 
-            System.Console.WriteLine("After FillDealerHands:");
-            output = game.GetHandInfo();
-            System.Console.WriteLine(output);
+            System.Console.WriteLine("***   After FillDealerHands   ***");
+            System.Console.WriteLine();
+            System.Console.WriteLine(game.ToString());
 
-            //for (var i = 0; i < 20; i++)
-            //{
-            //    var card = table.Shoe.Deal();
-            //    System.Console.WriteLine(card.ToLongString());
-            //}
+            var amount = game.SettleBets();
+            var winnings = string.Format("House Winnings: {0:C}", amount);
+
+            System.Console.WriteLine("***   After FillDealerHands   ***");
+            System.Console.WriteLine();
+            System.Console.WriteLine(game.ToString());
+            System.Console.WriteLine(winnings);
 
             System.Console.ReadLine();
         }

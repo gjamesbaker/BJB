@@ -16,5 +16,6 @@ namespace Blackjack
         bool CreatedFromSplit { get; set; }
         IList<IBlackjackCard> GetCards();
         void SplitInto(IBlackjackHand hand);
+        string ToString();
     }
 }

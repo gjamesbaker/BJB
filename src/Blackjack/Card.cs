@@ -1,4 +1,6 @@
-﻿namespace Blackjack
+﻿using System.Text;
+
+namespace Blackjack
 {
     public class Card : IBlackjackCard
     {
@@ -21,5 +23,9 @@
             get { return (int)Rank; }
         }
 
+        public override string ToString()
+        {
+            return ToLongString();
+        }
     }
 }

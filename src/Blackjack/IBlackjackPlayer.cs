@@ -11,8 +11,9 @@ namespace Blackjack
         
         void StartNewGame();
         void PlaceBet();
-        bool OfferSplit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard);
+        bool OfferSplit(IBlackjackCard dealerFaceUpCard);
         bool OfferDoubleDown(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard);
         bool Hit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard);
+        double SettleBet(IBlackjackHand hand, IDealerHand dealerHand);
     }
 }

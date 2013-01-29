@@ -5,5 +5,6 @@
         Rank Rank { get; }
         Suit Suit { get; }
         string ToLongString();
+        string ToString();
     }
 }
