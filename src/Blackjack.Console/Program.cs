@@ -12,7 +12,18 @@
 
             table.ShuffleShoe();
 
+            PerformOneGame(table);
+        }
+
+        private static void PerformOneGame(IBlackjackTable table)
+        {
             var game = new Game(table);
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("***************************");
+            System.Console.WriteLine("******   NEW ROUND   ******");
+            System.Console.WriteLine("***************************");
+            System.Console.WriteLine();
 
             game.StartNewGame();
             game.CallForBets();
@@ -49,7 +60,7 @@
             var amount = game.SettleBets();
             var winnings = string.Format("House Winnings: {0:C}", amount);
 
-            System.Console.WriteLine("***   After FillDealerHands   ***");
+            System.Console.WriteLine("***   After SettleBets   ***");
             System.Console.WriteLine();
             System.Console.WriteLine(game.ToString());
             System.Console.WriteLine(winnings);

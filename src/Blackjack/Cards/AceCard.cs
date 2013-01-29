@@ -11,8 +11,4 @@
         }
 
     }
-
-    public interface IAceCard : IBlackjackCard
-    {
-    }
 }

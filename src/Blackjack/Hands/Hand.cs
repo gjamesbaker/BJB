@@ -7,79 +7,44 @@ namespace Blackjack.Hands
 {
     public abstract class Hand : IBlackjackHand
     {
-        private readonly List<IBlackjackCard> _cards;
+        protected readonly List<IBlackjackCard> _cards;
         
         protected Hand()
         {
             _cards = new List<IBlackjackCard>();
-
             EligibleForBlackjack = true;
-            EligibleForDoubleDown = false;
-            EligibleForSplit = false;
-
             HandValueCalculator = new HandValueCalculator();
         }
 
         public IBlackjackBet Bet { get; set; }
 
-        public bool EligibleForBlackjack { get; private set; }
-
-        public bool EligibleForSplit { get; private set; }
-
-        public bool EligibleForDoubleDown { get; private set; }
-
-        public bool CreatedFromSplit { get; set; }
+        public bool EligibleForBlackjack { get; protected set; }
 
         public IHandValueCalculator HandValueCalculator { get; set; }
 
         public bool HasBlackjack { get; private set; }
 
-        public void AddCard(IBlackjackCard card)
+        public virtual void AddCard(IBlackjackCard card)
         {
             _cards.Add(card);
 
-            if (CreatedFromSplit) EligibleForBlackjack = false;
-            
             if (EligibleForBlackjack)
                 CheckForBlackjack();
-
-            CheckForSplitEligibility();
-
-            CheckForDoubleDownEligibility();
         }
 
-        private void CheckForSplitEligibility()
-        {
-            EligibleForSplit = (_cards.Count == 2 && _cards[0].Value == _cards[1].Value);
-        }
-
-        private void CheckForDoubleDownEligibility()
-        {
-            // House rules: Double Down only allowed on initial hand worth 9, 10, 11
-            EligibleForDoubleDown = (!CreatedFromSplit && _cards.Count == 2 && Value() > 8 && Value() < 12);
-        }
 
         public IList<IBlackjackCard> GetCards()
         {
             return _cards;
         }
 
-        public void SplitInto(IBlackjackHand hand)
-        {
-            var card2 = _cards[1];
-            _cards.RemoveAt(1);
-            hand.AddCard(card2);
-
-            CreatedFromSplit = true;
-            hand.CreatedFromSplit = true;
-        }
 
         public bool Busted
         {
             get { return Value() > 21; }
         }
 
-        private void CheckForBlackjack()
+        protected void CheckForBlackjack()
         {
             switch (_cards.Count)
             {

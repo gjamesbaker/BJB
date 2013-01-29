@@ -75,16 +75,7 @@ namespace Blackjack
 
         public override string ToString()
         {
-            var output = new StringBuilder();
-
-            foreach (var player in _table.Players)
-            {
-                output.AppendLine(player.ToString());
-            }
-
-            output.Append(_table.DealerHand.ToString());
-
-            return output.ToString();
+            return _table.ToString();
         }
         
 

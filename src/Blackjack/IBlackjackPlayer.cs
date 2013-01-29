@@ -8,14 +8,14 @@ namespace Blackjack
     {
         double Ante { get; set; }
         double Balance { get; set; }
-        IEnumerable<IBlackjackHand> Hands { get; }
-        IBlackjackHand GetInitialHand();
+        IEnumerable<IPlayerHand> Hands { get; }
+        IPlayerHand GetInitialHand();
         
         void StartNewGame();
         void PlaceBet();
         bool OfferSplit(IBlackjackCard dealerFaceUpCard);
-        bool OfferDoubleDown(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard);
-        bool Hit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard);
-        double SettleBet(IBlackjackHand hand, IDealerHand dealerHand);
+        bool OfferDoubleDown(IPlayerHand playerHand, IBlackjackCard dealerFaceUpCard);
+        bool Hit(IPlayerHand playerHand, IBlackjackCard dealerFaceUpCard);
+        double SettleBet(IPlayerHand hand, IDealerHand dealerHand);
     }
 }

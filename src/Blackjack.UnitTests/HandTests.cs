@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Blackjack.Bets;
 using Blackjack.Cards;
 using Blackjack.Hands;
 using NSubstitute;
@@ -166,6 +167,81 @@ namespace Blackjack.UnitTests
             busted.Should().Be.False();
         }
 
+        [Test]
+        public void hand_shows_blackjack_with_initial_hand_value_of_21()
+        {
+            // Arrange
+            var handValueCalculator = Substitute.For<IHandValueCalculator>();
+            var card1 = Substitute.For<IAceCard>();
+            card1.Value.Returns(11);
+            var card2 = Substitute.For<IBlackjackCard>();
+            card2.Value.Returns(10);
+
+            IPlayerHand hand = new PlayerHand();
+            handValueCalculator.Value(hand).Returns(21);
+            hand.HandValueCalculator = handValueCalculator;
+
+            hand.AddCard(card1);
+            hand.AddCard(card2);
+
+            // Act
+            var hasBlackJack = hand.HasBlackjack;
+
+            // Assert
+            hasBlackJack.Should().Be.True();
+        }
+
+        [Test]
+        public void bet_switches_to_blackjackbet_when_hand_has_blackjack()
+        {
+            // Arrange
+            var handValueCalculator = Substitute.For<IHandValueCalculator>();
+            var card1 = Substitute.For<IAceCard>();
+            card1.Value.Returns(11);
+            var card2 = Substitute.For<IBlackjackCard>();
+            card2.Value.Returns(10);
+            var anteBet = Substitute.For<AnteBet>(10.0);
+
+            IPlayerHand hand = new PlayerHand();
+            handValueCalculator.Value(hand).Returns(21);
+            hand.HandValueCalculator = handValueCalculator;
+
+            hand.Bet = anteBet;
+            hand.AddCard(card1);
+            hand.AddCard(card2);
+            
+            // Act
+            var bet = hand.Bet;
+
+            // Assert
+            bet.Should().Be.OfType<BlackjackBet>();
+        }
+
+        [Test]
+        public void hand_split_result_in_two_hands_of_one_card_each()
+        {
+            // Arrange
+            var hand = new PlayerHand();
+            var card1 = Substitute.For<IBlackjackCard>();
+            card1.Value.Returns(5);
+            var card2 = Substitute.For<IBlackjackCard>();
+            card2.Value.Returns(5);
+
+            hand.AddCard(card1);
+            hand.AddCard(card2);
+
+            var hand2 = new PlayerHand();
+
+            // Act
+            hand.SplitInto(hand2);
+
+            // Assert
+            hand.GetCards().Count.Should().Equal(1);
+            hand2.GetCards().Count.Should().Equal(1);
+
+            hand.GetCards()[0].Should().Be.SameAs(card1);
+            hand2.GetCards()[0].Should().Be.SameAs(card2);
+        }
     }
 }
 

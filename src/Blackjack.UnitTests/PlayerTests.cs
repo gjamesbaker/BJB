@@ -30,7 +30,7 @@ namespace Blackjack.UnitTests
             // Arrange
             IBlackjackPlayer player = new BlackjackPlayer();
             var dealerFaceUpCard = Substitute.For<IBlackjackCard>();
-            var hand = Substitute.For<IBlackjackHand>();
+            var hand = Substitute.For<IPlayerHand>();
             var bet = Substitute.For<AnteBet>(0.0);
 
             hand.Value().Returns(16);
@@ -49,7 +49,7 @@ namespace Blackjack.UnitTests
             // Arrange
             IBlackjackPlayer player = new BlackjackPlayer();
             var dealerFaceUpCard = Substitute.For<IBlackjackCard>();
-            var hand = Substitute.For<IBlackjackHand>();
+            var hand = Substitute.For<IPlayerHand>();
             hand.Value().Returns(17);
 
             // Act

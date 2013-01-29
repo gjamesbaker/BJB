@@ -14,7 +14,7 @@ namespace Blackjack.Cards
             {
                 for (var rank = 1; rank <= 13; rank++)
                 {
-                    _cards.Add(BlackjackCardFactory.Get((Rank) rank, (Suit) suit));
+                    _cards.Add(BlackjackCardFactory.Get( (Rank)rank, (Suit)suit ));
                 }
             }
         }

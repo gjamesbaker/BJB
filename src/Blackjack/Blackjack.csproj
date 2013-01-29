@@ -52,6 +52,7 @@
     <Compile Include="BlackjackPlayer.cs" />
     <Compile Include="BlackjackTable.cs" />
     <Compile Include="Cards\Card.cs" />
+    <Compile Include="Cards\IAceCard.cs" />
     <Compile Include="Hands\DealerHand.cs" />
     <Compile Include="Cards\Deck.cs" />
     <Compile Include="Cards\FaceCard.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Bets\IBlackjackBet.cs" />
     <Compile Include="Cards\IBlackjackCard.cs" />
     <Compile Include="Hands\IBlackjackHand.cs" />
+    <Compile Include="Hands\IPlayerHand.cs" />
     <Compile Include="IBlackjackPlayer.cs" />
     <Compile Include="IBlackjackTable.cs" />
     <Compile Include="Cards\ICard.cs" />

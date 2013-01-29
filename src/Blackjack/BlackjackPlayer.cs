@@ -10,7 +10,7 @@ namespace Blackjack
 {
     public class BlackjackPlayer : IBlackjackPlayer
     {
-        private List<IBlackjackHand> _hands = new List<IBlackjackHand>();
+        private List<IPlayerHand> _hands = new List<IPlayerHand>();
         
         public BlackjackPlayer()
         {
@@ -20,14 +20,14 @@ namespace Blackjack
 
         public double Ante { get; set; }
         public double Balance { get; set; }
-        
-        public IEnumerable<IBlackjackHand> Hands
+
+        public IEnumerable<IPlayerHand> Hands
         {
             get { return _hands; }
         }
 
         // TODO: Add Test
-        public IBlackjackHand GetInitialHand()
+        public IPlayerHand GetInitialHand()
         {
             if (_hands.Count.Equals(0))
             {
@@ -38,7 +38,7 @@ namespace Blackjack
 
         public void StartNewGame()
         {
-            _hands = new List<IBlackjackHand>();
+            _hands = new List<IPlayerHand>();
         }
 
         public void PlaceBet()
@@ -64,13 +64,14 @@ namespace Blackjack
             return splitOccurred;
         }
 
-        private bool ConsiderSplitOffer(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
+        private bool ConsiderSplitOffer(IPlayerHand playerHand, IBlackjackCard dealerFaceUpCard)
         {
             if (!playerHand.EligibleForSplit)
             {
                 return false;
             }
-            
+
+            // Using simple logic for now
             var hand = new PlayerHand();
             Balance -= Ante;
             hand.Bet = new AnteBet(Ante);
@@ -81,7 +82,7 @@ namespace Blackjack
             return true;
         }
 
-        public bool OfferDoubleDown(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
+        public bool OfferDoubleDown(IPlayerHand playerHand, IBlackjackCard dealerFaceUpCard)
         {
             // Simple Strategy - always accept if eligible
             if (!playerHand.EligibleForDoubleDown)
@@ -98,17 +99,25 @@ namespace Blackjack
             return true;
         }
 
-        public bool Hit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
+        public bool Hit(IPlayerHand playerHand, IBlackjackCard dealerFaceUpCard)
         {
             // Simplistic strategy
             return playerHand.Value() < 17 && playerHand.Bet is AnteBet;
         }
 
         // TODO: Add Test
-        public double SettleBet(IBlackjackHand hand, IDealerHand dealerHand)
+        public double SettleBet(IPlayerHand hand, IDealerHand dealerHand)
         {
             if (hand.Busted)
                 return hand.Bet.LoseAmount();
+
+            if (dealerHand.Busted)
+            {
+                Balance += hand.Bet.Amount + hand.Bet.WinAmount();
+                return hand.Bet.WinAmount()*-1;
+            }
+
+            // Neither hand busted
 
             if (hand.Value() == dealerHand.Value())
             {
