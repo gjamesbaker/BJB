@@ -1,4 +1,4 @@
-﻿namespace Blackjack
+﻿namespace Blackjack.Hands
 {
     public interface IHandValueCalculator
     {

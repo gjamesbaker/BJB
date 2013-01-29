@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Blackjack.Bets;
+using Blackjack.Cards;
 
-namespace Blackjack
+namespace Blackjack.Hands
 {
     public interface IBlackjackHand
     {

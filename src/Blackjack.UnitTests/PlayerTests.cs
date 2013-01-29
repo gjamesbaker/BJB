@@ -1,4 +1,7 @@
 ﻿using System.Linq;
+using Blackjack.Bets;
+using Blackjack.Cards;
+using Blackjack.Hands;
 using NSubstitute;
 using NUnit.Framework;
 using Should.Fluent;
@@ -18,7 +21,7 @@ namespace Blackjack.UnitTests
             player.PlaceBet();
 
             // Assert
-            player.Balance.Should().Equal(950);
+            player.Balance.Should().Equal(950.0);
         }
 
         [Test]
@@ -28,7 +31,10 @@ namespace Blackjack.UnitTests
             IBlackjackPlayer player = new BlackjackPlayer();
             var dealerFaceUpCard = Substitute.For<IBlackjackCard>();
             var hand = Substitute.For<IBlackjackHand>();
+            var bet = Substitute.For<AnteBet>(0.0);
+
             hand.Value().Returns(16);
+            hand.Bet.Returns(bet);
 
             // Act
             var acceptHit = player.Hit(hand, dealerFaceUpCard);

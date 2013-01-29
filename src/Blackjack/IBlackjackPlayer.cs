@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Blackjack.Cards;
+using Blackjack.Hands;
 
 namespace Blackjack
 {

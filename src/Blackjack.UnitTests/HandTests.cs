@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Blackjack.Cards;
+using Blackjack.Hands;
 using NSubstitute;
 using NUnit.Framework;
 using Should.Fluent;

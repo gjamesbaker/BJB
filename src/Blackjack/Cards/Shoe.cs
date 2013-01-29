@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CuttingEdge.Conditions;
+using Blackjack.Exceptions;
 
-namespace Blackjack
+namespace Blackjack.Cards
 {
     public class Shoe : IShoe
     {

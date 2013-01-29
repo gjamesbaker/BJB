@@ -1,4 +1,6 @@
-﻿namespace Blackjack
+﻿using Blackjack.Cards;
+
+namespace Blackjack.Hands
 {
     public class HandValueCalculator : IHandValueCalculator
     {

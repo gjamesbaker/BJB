@@ -1,4 +1,4 @@
-﻿namespace Blackjack
+﻿namespace Blackjack.Cards
 {
     public class AceCard : Card, IAceCard
     {

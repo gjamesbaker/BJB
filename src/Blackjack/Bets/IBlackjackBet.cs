@@ -1,4 +1,4 @@
-﻿namespace Blackjack
+﻿namespace Blackjack.Bets
 {
     public interface IBlackjackBet
     {

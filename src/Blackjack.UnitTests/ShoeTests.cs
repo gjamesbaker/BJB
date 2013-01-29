@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Blackjack.Cards;
+using Blackjack.Exceptions;
 using NSubstitute;
 using NUnit.Framework;
 using Should.Fluent;

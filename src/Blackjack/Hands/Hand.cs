@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Blackjack.Bets;
+using Blackjack.Cards;
 
-namespace Blackjack
+namespace Blackjack.Hands
 {
     public abstract class Hand : IBlackjackHand
     {

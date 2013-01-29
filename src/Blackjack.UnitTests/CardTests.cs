@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Blackjack.Cards;
+using NUnit.Framework;
 using Should.Fluent;
 
 namespace Blackjack.UnitTests

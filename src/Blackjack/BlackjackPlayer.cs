@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Blackjack.Bets;
+using Blackjack.Cards;
+using Blackjack.Exceptions;
+using Blackjack.Hands;
 
 namespace Blackjack
 {

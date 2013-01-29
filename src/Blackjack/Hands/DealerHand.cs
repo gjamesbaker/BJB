@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using Blackjack.Cards;
 
-namespace Blackjack
+namespace Blackjack.Hands
 {
     public class DealerHand : Hand, IDealerHand
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blackjack
+namespace Blackjack.Exceptions
 {
     public class ShoeOutOfCardsException : ApplicationException
     {

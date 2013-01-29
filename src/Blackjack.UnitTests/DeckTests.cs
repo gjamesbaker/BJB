@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Blackjack.Cards;
 using NUnit.Framework;
 using Should.Fluent;
 

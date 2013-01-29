@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using Blackjack.Bets;
+using NSubstitute;
 using NUnit.Framework;
 using Should.Fluent;
 

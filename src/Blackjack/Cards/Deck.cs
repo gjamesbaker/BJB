@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Blackjack
+namespace Blackjack.Cards
 {
     public class Deck : IDeck
     {

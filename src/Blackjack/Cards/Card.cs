@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Blackjack
+﻿namespace Blackjack.Cards
 {
     public class Card : IBlackjackCard
     {

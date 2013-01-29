@@ -1,4 +1,6 @@
-﻿namespace Blackjack
+﻿using System;
+
+namespace Blackjack
 {
     public class Random : IRandom
     {
@@ -6,7 +8,7 @@
 
         public Random()
         {
-            _random = new System.Random();
+            _random = new System.Random(DateTime.Now.Millisecond);
         }
 
         public int Next(int max)
