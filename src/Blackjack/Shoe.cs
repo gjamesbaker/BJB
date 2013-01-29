@@ -5,7 +5,7 @@ namespace Blackjack
 {
     public class Shoe : IShoe
     {
-        private IList<ICard> _cards = new List<ICard>();
+        private IList<IBlackjackCard> _cards = new List<IBlackjackCard>();
 
         public Shoe(int decks)
         {
@@ -33,7 +33,7 @@ namespace Blackjack
             return _cards.Count;
         }
 
-        public ICard Deal()
+        public IBlackjackCard Deal()
         {
             if (CardCount() < 1)
                 throw new ShoeOutOfCardsException();
@@ -44,9 +44,14 @@ namespace Blackjack
             return card;
         }
 
+        public void Shuffle()
+        {
+            Shuffle(new Random());
+        }
+
         public void Shuffle(IRandom random)
         {
-            var newCards = new List<ICard>();
+            var newCards = new List<IBlackjackCard>();
             while (_cards.Count > 0)
             {
                 var cardToMove = random.Next(_cards.Count);

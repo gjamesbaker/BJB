@@ -2,10 +2,10 @@
 {
     public interface IBlackjackBet
     {
-        int Amount { get; }
-        IBlackjackHand Hand { get; }
+        double Amount { get; }
+        double Odds { get; }
 
-        int WinAmount();
-        int LoseAmount();
+        double WinAmount();
+        double LoseAmount();
     }
 }

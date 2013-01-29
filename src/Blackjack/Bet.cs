@@ -2,25 +2,77 @@
 
 namespace Blackjack
 {
-    public class Bet : IBlackjackBet
+    public abstract class Bet : IBlackjackBet
     {
-        public Bet(int amount, IBlackjackHand hand)
+        protected Bet(double amount)
         {
-            Hand = hand;
             Amount = amount;
         }
 
-        public int Amount { get; private set; }
-        public IBlackjackHand Hand { get; private set; }
-        
-        public int WinAmount()
+        public double Amount { get; private set; }
+        public double Odds { get; protected set; }
+       
+        public double WinAmount()
         {
-            return Hand.HasBlackjack ? Amount*15/10 : Amount;
+            return Amount * Odds;
         }
 
-        public int LoseAmount()
+        public double LoseAmount()
         {
             return Amount;
         }
     }
+
+    public class AnteBet : Bet
+    {
+        public AnteBet(double amount)
+            : base(amount)
+        {
+            Odds = 1;
+        }
+
+        public BlackjackBet ConvertToBlackjackBet()
+        {
+            return new BlackjackBet(Amount);
+        }
+
+        public DoubleDownBet ConvertToDoubledownBet()
+        {
+            return new DoubleDownBet(Amount * 2.0);
+        }
+
+        public override string ToString()
+        {
+            return String.Format("AnteBet of {0:C} at {1}:1 odds", Amount, Odds);
+        }
+    }
+
+    public class BlackjackBet : Bet
+    {
+        public BlackjackBet(double amount)
+            : base(amount)
+        {
+            Odds = 1.5;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("BlackjackBet of {0:C} at {1}:1 odds", Amount, Odds);
+        }
+    }
+
+    public class DoubleDownBet : Bet
+    {
+        public DoubleDownBet(double amount)
+            : base(amount)
+        {
+            Odds = 1;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("DoubleDownBet of {0:C} at {1}:1 odds", Amount, Odds);
+        }
+    }
+
 }

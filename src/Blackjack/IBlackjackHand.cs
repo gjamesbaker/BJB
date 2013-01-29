@@ -4,13 +4,17 @@ namespace Blackjack
 {
     public interface IBlackjackHand
     {
-        IEnumerable<IBlackjackCard> Cards { get; }
         void AddCard(IBlackjackCard card);
         int Value();
-        bool EligibleForBlackjack { get; set; }
+        bool EligibleForBlackjack { get; }
         bool HasBlackjack { get; }
-        bool Busted();
+        bool Busted { get; }
+        bool EligibleForSplit { get; }
+        bool EligibleForDoubleDown { get; }
         IHandValueCalculator HandValueCalculator { get; set; }
         IBlackjackBet Bet { get; set; }
+        bool CreatedFromSplit { get; set; }
+        IList<IBlackjackCard> GetCards();
+        void SplitInto(IBlackjackHand hand);
     }
 }

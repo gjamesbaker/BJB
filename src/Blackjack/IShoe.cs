@@ -3,7 +3,9 @@
     public interface IShoe
     {
         int CardCount();
-        ICard Deal();
+        IBlackjackCard Deal();
+        void Shuffle();
         void Shuffle(IRandom random);
     }
+
 }

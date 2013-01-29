@@ -5,6 +5,6 @@ namespace Blackjack
     public interface IDeck
     {
         bool ContainsCard(Rank rank, Suit suit);
-        IEnumerable<ICard> GetCards();
+        IEnumerable<IBlackjackCard> GetCards();
     }
 }

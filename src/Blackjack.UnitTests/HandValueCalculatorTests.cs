@@ -21,7 +21,7 @@ namespace Blackjack.UnitTests
             var cards = new List<IBlackjackCard>(){card1, card2};
 
             var hand = Substitute.For<IBlackjackHand>();
-            hand.Cards.Returns(cards);
+            hand.GetCards().Returns(cards);
 
             var handValueCalculator = new HandValueCalculator();
 
@@ -45,7 +45,7 @@ namespace Blackjack.UnitTests
             var cards = new List<IBlackjackCard>() { card1, card2 };
 
             var hand = Substitute.For<IBlackjackHand>();
-            hand.Cards.Returns(cards);
+            hand.GetCards().Returns(cards);
 
             var handValueCalculator = new HandValueCalculator();
 
@@ -71,7 +71,7 @@ namespace Blackjack.UnitTests
             var cards = new List<IBlackjackCard>() { card1, card2, card3 };
 
             var hand = Substitute.For<IBlackjackHand>();
-            hand.Cards.Returns(cards);
+            hand.GetCards().Returns(cards);
 
             var handValueCalculator = new HandValueCalculator();
 

@@ -68,7 +68,6 @@ namespace Blackjack.UnitTests
                 shoe.Deal().Should().Be.SameAs(stackedDeck[i]);
                 shoe.CardCount().Should().Equal(i);
             }
-
         }
 
         [Test]
@@ -76,8 +75,8 @@ namespace Blackjack.UnitTests
         public void shoe_throws_exception_if_deal_when_empty()
         {
             // Arrange
-            var card = Substitute.For<ICard>();
-            IEnumerable<ICard> cards = new List<ICard>(){card};
+            var card = Substitute.For<IBlackjackCard>();
+            IEnumerable<ICard> cards = new List<IBlackjackCard>() { card };
 
             var deck = Substitute.For<IDeck>();
             deck.GetCards().Returns(cards);
@@ -92,9 +91,9 @@ namespace Blackjack.UnitTests
             shoe.Deal();  // Should throw a ShoeOutOfCardsException
         }
 
-        private IList<ICard> GetStackedDeck()
+        private IList<IBlackjackCard> GetStackedDeck()
         {
-            IList<ICard> stackedDeck = new List<ICard>();
+            IList<IBlackjackCard> stackedDeck = new List<IBlackjackCard>();
             stackedDeck.Add(BlackjackCardFactory.Get(Rank.Queen, Suit.Hearts));
             stackedDeck.Add(BlackjackCardFactory.Get(Rank.Seven, Suit.Spades));
             stackedDeck.Add(BlackjackCardFactory.Get(Rank.Ace, Suit.Diamonds));

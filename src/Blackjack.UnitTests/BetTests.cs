@@ -11,24 +11,20 @@ namespace Blackjack.UnitTests
         public void non_blackjack_win_returns_straight_bet()
         {
             // Arrange
-            var hand = Substitute.For<IBlackjackHand>();
-            hand.HasBlackjack.Returns(false);
-            IBlackjackBet bet = new Bet(100, hand);
+            IBlackjackBet bet = new AnteBet(100);
 
             // Act
-            bet.WinAmount().Should().Equal(100);
+            bet.WinAmount().Should().Equal(100.0);
         }
 
         [Test]
         public void blackjack_win_returns_150_pct()
         {
             // Arrange
-            var hand = Substitute.For<IBlackjackHand>();
-            hand.HasBlackjack.Returns(true);
-            IBlackjackBet bet = new Bet(100, hand);
+            IBlackjackBet bet = new BlackjackBet(100);
 
             // Act
-            bet.WinAmount().Should().Equal(150);
+            bet.WinAmount().Should().Equal(150.0);
         }
 
     }

@@ -7,7 +7,7 @@
             var handValue = 0;
             var aceCount = 0;
 
-            foreach (var card in hand.Cards)
+            foreach (var card in hand.GetCards())
             {
                 handValue += card.Value;
                 if (card is IAceCard)

@@ -4,7 +4,7 @@ namespace Blackjack
 {
     public class BlackjackPlayer : IBlackjackPlayer
     {
-        private List<IBlackjackHand> _hands;
+        private List<IBlackjackHand> _hands = new List<IBlackjackHand>();
         
         public BlackjackPlayer()
         {
@@ -12,29 +12,74 @@ namespace Blackjack
             Ante = 10;
         }
 
-        public int Ante { get; set; }
-        public int Balance { get; set; }
+        public double Ante { get; set; }
+        public double Balance { get; set; }
         
         public IEnumerable<IBlackjackHand> Hands
         {
             get { return _hands; }
         }
 
-        public void NewGame()
+        // TODO: Add Test
+        public IBlackjackHand GetInitialHand()
+        {
+            if (_hands.Count.Equals(0))
+            {
+                throw new MissingBetException();
+            }
+            return _hands[0];
+        }
+
+        public void StartNewGame()
         {
             _hands = new List<IBlackjackHand>();
         }
 
-        public IBlackjackBet PlaceBet()
+        public void PlaceBet()
         {
-            var hand = new PlayerHand(this);
+            var hand = new PlayerHand();
             Balance -= Ante;
-            return new Bet(Ante, hand);
+            hand.Bet = new AnteBet(Ante);
+            _hands.Add(hand);
         }
 
-        public bool Hit(IBlackjackHand hand)
+        public bool OfferSplit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
         {
-            return hand.Value() < 17;
+            if (!playerHand.EligibleForSplit)
+            {
+                return false;
+            }
+            
+            var hand = new PlayerHand();
+            Balance -= Ante;
+            hand.Bet = new AnteBet(Ante);
+            _hands.Add(hand);
+
+            playerHand.SplitInto(hand);
+
+            return true;
+        }
+
+        public bool OfferDoubleDown(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
+        {
+            // Simple Strategy - always accept if eligible
+            if (!playerHand.EligibleForDoubleDown)
+            {
+                return false;
+            }
+
+            var originalAmount = playerHand.Bet.Amount;
+
+            Balance -= originalAmount;
+
+            playerHand.Bet = new DoubleDownBet(originalAmount * 2);
+
+            return true;
+        }
+
+        public bool Hit(IBlackjackHand playerHand, IBlackjackCard dealerFaceUpCard)
+        {
+            return playerHand.Value() < 17 && playerHand.Bet is AnteBet;
         }
     }
 }

@@ -5,11 +5,11 @@ namespace Blackjack
 {
     public class Deck : IDeck
     {
-        private readonly List<ICard> _cards;
+        private readonly List<IBlackjackCard> _cards;
 
         public Deck()
         {
-            _cards = new List<ICard>();
+            _cards = new List<IBlackjackCard>();
             for (var suit = 0; suit <= 3; suit++)
             {
                 for (var rank = 1; rank <= 13; rank++)
@@ -19,7 +19,7 @@ namespace Blackjack
             }
         }
 
-        public IEnumerable<ICard> GetCards()
+        public IEnumerable<IBlackjackCard> GetCards()
         {
             return _cards;
         }
