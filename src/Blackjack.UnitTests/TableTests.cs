@@ -87,5 +87,47 @@ namespace Blackjack.UnitTests
             player1.Received().StartNewGame();
             player2.Received().StartNewGame();
         }
+
+        [Test]
+        public void call_for_bets_calls_place_bet_on_each_player()
+        {
+            // Arrange
+            var table = new BlackjackTable();
+            var player1 = Substitute.For<IBlackjackPlayer>();
+            var player2 = Substitute.For<IBlackjackPlayer>();
+
+            table.AddPlayer(player1);
+            table.AddPlayer(player2);
+
+            // Act
+            table.CallForBets();
+
+            // Assert
+            player1.Received().PlaceBet();
+            player2.Received().PlaceBet();
+        }
+
+        [Test]
+        public void offer_splits_calls_offer_split_on_each_player()
+        {
+            // Arrange
+            var table = new BlackjackTable();
+            var player1 = Substitute.For<IBlackjackPlayer>();
+            var player2 = Substitute.For<IBlackjackPlayer>();
+            var card = Substitute.For<IBlackjackCard>();
+            table.DealerHand.AddCard(card);
+            table.DealerHand.AddCard(card);
+            table.AddPlayer(player1);
+            table.AddPlayer(player2);
+
+            // Act
+            table.OfferSplits();
+
+            // Assert
+            player1.Received().OfferSplit(card);
+            player2.Received().OfferSplit(card);
+        }
+
+
     }
 }

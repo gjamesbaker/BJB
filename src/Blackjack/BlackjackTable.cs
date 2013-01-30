@@ -39,7 +39,6 @@ namespace Blackjack
             DealerHand = new DealerHand();
         }
 
-        // TODO: Add Test
         public void CallForBets()
         {
             foreach (var player in Players)
@@ -48,14 +47,13 @@ namespace Blackjack
             }
         }
 
-        // TODO: Add Test
         public void OfferSplits()
         {
+            var dealerFaceUpCard = DealerHand.GetFaceUpCard();
+
             foreach (var player in Players)
             {
                 bool splitOccurred;
-                var dealerFaceUpCard = DealerHand.GetFaceUpCard();
-
                 do
                 {
                     splitOccurred = player.OfferSplit(dealerFaceUpCard);
@@ -67,8 +65,7 @@ namespace Blackjack
             }
         }
 
-        // TODO: Add Test
-        public void OfferdoubleDowns()
+        public void OfferDoubleDowns()
         {
             var dealerFaceUpCard = DealerHand.GetFaceUpCard();
 
@@ -83,7 +80,6 @@ namespace Blackjack
             }
         }
 
-        // TODO: Add Test
         public void FillPlayerHands()
         {
             foreach (var player in Players)
@@ -96,7 +92,6 @@ namespace Blackjack
             }
         }
 
-        // TODO: Add Test
         public void FillDealerHand()
         {
             while(DealerHand.Value()<17)

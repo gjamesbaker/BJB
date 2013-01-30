@@ -2,6 +2,7 @@
 using System.Linq;
 using Blackjack.Bets;
 using Blackjack.Cards;
+using Blackjack.Exceptions;
 using Blackjack.Hands;
 using NSubstitute;
 using NUnit.Framework;
@@ -329,7 +330,113 @@ namespace Blackjack.UnitTests
             response.Should().Be.False();
         }
 
-        
+        [Test]
+        public void offer_to_double_down_on_ineligible_hand_returns_false()
+        {
+            // Arrange
+            var player = new BlackjackPlayer();
+            var dealerFaceUpCard = Substitute.For<IBlackjackCard>();
+
+            var hand1 = Substitute.For<IPlayerHand>();
+            hand1.EligibleForDoubleDown.Returns(false);
+
+            var playerHands = (List<IPlayerHand>)player.Hands;
+            playerHands.Add(hand1);
+
+            // Act
+            var response = player.OfferDoubleDown(hand1, dealerFaceUpCard);
+
+            // Assert
+            response.Should().Be.False();
+        }
+
+        [Test]
+        public void offer_to_double_down_on_eligible_hand_returns_true()
+        {
+            // Arrange
+            var player = new BlackjackPlayer();
+            var dealerFaceUpCard = Substitute.For<IBlackjackCard>();
+
+            var hand1 = Substitute.For<IPlayerHand>();
+            hand1.EligibleForDoubleDown.Returns(true);
+
+            // Act
+            var response = player.OfferDoubleDown(hand1, dealerFaceUpCard);
+
+            // Assert
+            response.Should().Be.True();
+        }
+
+        [Test]
+        public void offer_to_double_down_on_eligible_hand_decreases_players_balance()
+        {
+            // Arrange
+            var player = new BlackjackPlayer {Balance = 100.0};
+            var bet = new AnteBet(20.0);
+
+            var dealerFaceUpCard = Substitute.For<IBlackjackCard>();
+
+            var hand1 = Substitute.For<IPlayerHand>();
+            hand1.EligibleForDoubleDown.Returns(true);
+            hand1.Bet = bet;
+
+            // Act
+            player.OfferDoubleDown(hand1, dealerFaceUpCard);
+
+            // Assert
+            player.Balance.Should().Equal(80.0);
+        }
+
+        [Test]
+        public void offer_to_double_down_on_eligible_hand_doubles_amount_of_bet()
+        {
+            // Arrange
+            var player = new BlackjackPlayer { Balance = 100.0 };
+            var bet = new AnteBet(20.0);
+
+            var dealerFaceUpCard = Substitute.For<IBlackjackCard>();
+
+            var hand1 = Substitute.For<IPlayerHand>();
+            hand1.EligibleForDoubleDown.Returns(true);
+            hand1.Bet = bet;
+
+            // Act
+            player.OfferDoubleDown(hand1, dealerFaceUpCard);
+
+            // Assert
+            hand1.Bet.Amount.Should().Equal(40.0);
+            hand1.Bet.Should().Be.OfType<DoubleDownBet>();
+        }
+
+        [Test, ExpectedException(typeof(MissingBetException))]
+        public void calling_get_initial_hand_before_placing_ante_throws_exception()
+        {
+            // Arrange
+            var player = new BlackjackPlayer();
+
+            // Act
+            player.GetInitialHand();
+        }
+
+        [Test]
+        public void calling_get_initial_hand_returns_first_hand()
+        {
+            // Arrange
+            var player = new BlackjackPlayer();
+            player.PlaceBet();
+            player.PlaceBet();
+
+            var hands = (List<IPlayerHand>)player.Hands;
+            hands.Count.Should().Equal(2);
+            var hand1 = hands[0];
+
+            // Act
+            var hand = player.GetInitialHand();
+
+            // Assert
+            hand.Should().Not.Be.Null();
+            hand.Should().Be.SameAs(hand1);
+        }
 
     }
 }

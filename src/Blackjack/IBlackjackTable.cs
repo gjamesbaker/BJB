@@ -13,7 +13,7 @@ namespace Blackjack
         void StartNewGame();
         void CallForBets();
         void OfferSplits();
-        void OfferdoubleDowns();
+        void OfferDoubleDowns();
         void FillPlayerHands();
         void FillDealerHand();
         double SettleBets();

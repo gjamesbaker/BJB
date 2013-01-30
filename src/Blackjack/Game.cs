@@ -41,7 +41,7 @@ namespace Blackjack
 
         public void OfferDoubleDowns()
         {
-            _table.OfferdoubleDowns();
+            _table.OfferDoubleDowns();
         }
 
         public void FillPlayerHands()
