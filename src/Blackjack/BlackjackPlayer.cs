@@ -53,13 +53,10 @@ namespace Blackjack
         {
             var splitOccurred = false;
 
-            // Offer a split to all eligible hands
+            // Offer a split to all hands
             foreach (var hand in Hands.ToList())
             {
-                if (hand.EligibleForSplit)
-                {
-                    splitOccurred = splitOccurred || ConsiderSplitOffer(hand, dealerFaceUpCard);
-                }
+                splitOccurred = splitOccurred || ConsiderSplitOffer(hand, dealerFaceUpCard);
             }
             return splitOccurred;
         }

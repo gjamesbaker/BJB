@@ -242,6 +242,59 @@ namespace Blackjack.UnitTests
             hand.GetCards()[0].Should().Be.SameAs(card1);
             hand2.GetCards()[0].Should().Be.SameAs(card2);
         }
+
+        [Test]
+        public void split_hand_marked_ineligible_for_blackjack()
+        {
+            // Arrange
+            var hand = new PlayerHand();
+            
+            hand.EligibleForBlackjack.Should().Be.True();
+            hand.CreatedFromSplit = true;
+            hand.EligibleForBlackjack.Should().Be.True();
+
+            var card = Substitute.For<IBlackjackCard>();
+            
+            // Act
+            hand.AddCard(card);
+
+            // Assert
+            hand.EligibleForBlackjack.Should().Be.False();
+        }
+
+        [Test]
+        public void dealer_hand_returns_second_card_as_face_up_card()
+        {
+            // Arrange
+            var hand = new DealerHand();
+            var card1 = Substitute.For<IBlackjackCard>();
+            var card2 = Substitute.For<IBlackjackCard>();
+            hand.AddCard(card1);
+            hand.AddCard(card2);
+
+            // Act
+            var faceUpCard = hand.GetFaceUpCard();
+
+            // Assert
+            faceUpCard.Should().Not.Be.Null();
+            faceUpCard.Should().Be.SameAs(card2);
+        }
+
+        [Test]
+        public void dealer_hand_returns_null_as_face_up_card_if_only_one_card_in_hand()
+        {
+            // Arrange
+            var hand = new DealerHand();
+            var card1 = Substitute.For<IBlackjackCard>();
+            hand.AddCard(card1);
+
+            // Act
+            var faceUpCard = hand.GetFaceUpCard();
+
+            // Assert
+            faceUpCard.Should().Be.Null();
+        }
+
     }
 }
 
