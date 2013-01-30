@@ -67,7 +67,7 @@
     <Compile Include="IBlackjackTable.cs" />
     <Compile Include="Cards\ICard.cs" />
     <Compile Include="Hands\IDealerHand.cs" />
-    <Compile Include="IDeck.cs" />
+    <Compile Include="Cards\IDeck.cs" />
     <Compile Include="Hands\IHandValueCalculator.cs" />
     <Compile Include="IRandom.cs" />
     <Compile Include="Cards\IShoe.cs" />

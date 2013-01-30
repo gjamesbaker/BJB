@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Blackjack.Cards;
 
-namespace Blackjack
+namespace Blackjack.Cards
 {
     public interface IDeck
     {

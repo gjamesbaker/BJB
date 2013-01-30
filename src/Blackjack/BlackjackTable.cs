@@ -108,6 +108,14 @@ namespace Blackjack
             Shoe.Shuffle();
         }
 
+        public void DealOneCardToPlayers()
+        {
+            foreach (var player in Players)
+            {
+                player.GetInitialHand().AddCard(Shoe.Deal());
+            }
+        }
+
         private void CompleteHands(IBlackjackPlayer player)
         {
             foreach (var hand in player.Hands.Where(hand => hand.GetCards().Count == 1))

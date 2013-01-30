@@ -26,7 +26,6 @@ namespace Blackjack
             get { return _hands; }
         }
 
-        // TODO: Add Test
         public IPlayerHand GetInitialHand()
         {
             if (_hands.Count.Equals(0))
@@ -102,7 +101,6 @@ namespace Blackjack
             return playerHand.Value() < 17 && playerHand.Bet is AnteBet;
         }
 
-        // TODO: Add Test
         public double SettleBet(IPlayerHand hand, IDealerHand dealerHand)
         {
             if (hand.Busted)

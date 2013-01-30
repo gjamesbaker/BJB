@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Text;
-
-namespace Blackjack
+﻿namespace Blackjack
 {
     public class Game
     {
@@ -13,7 +10,7 @@ namespace Blackjack
         }
 
         
-        // TODO: Implement a state pattern with signature like "public CurrentState NextStep()"
+        // TODO: Implement a state pattern with signature like "public IGameState NextStep()"
 
         public void StartNewGame()
         {
@@ -66,11 +63,7 @@ namespace Blackjack
 
         private void DealOneCardToPlayers()
         {
-            // TODO: move this down to Table
-            foreach (var player in _table.Players)
-            {
-                player.GetInitialHand().AddCard(_table.Shoe.Deal());
-            }
+            _table.DealOneCardToPlayers();
         }
 
         public override string ToString()
